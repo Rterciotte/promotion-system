@@ -16,7 +16,6 @@ class PromotionsController < ApplicationController
       if @promotion.save
         redirect_to @promotion
       else
-        @promotions = Promotion.all
         render :new
       end             
     end
