@@ -19,6 +19,30 @@ class PromotionsController < ApplicationController
         render :new
       end             
     end
+
+    def search
+      @promotions = Promotion.where('name LIKE UPPER(?)', "%#{params[:q]}%")
+      render :index
+    end
+    
+    def edit
+      @promotion = Promotion.find(params[:id])
+    end
+  
+    def update
+      @promotion = Promotion.find(params[:id])
+      if @promotion.update(promotion_params)
+        redirect_to @promotion
+      else
+        render :edit
+      end
+    end
+    
+    def destroy
+      @promotion = Promotion.find(params[:id])
+      @promotion.destroy
+      redirect_to promotions_path
+    end
   
     private
   

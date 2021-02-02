@@ -14,4 +14,9 @@
     <hr>
 </dl>
 
+<%= link_to 'Editar', edit_promotion_path(@promotion) %>
+
+<%= link_to 'Apagar', promotion_path(@promotion), method: :delete,
+    data: { confirm: 'Tem certeza que deseja apagar?' } %>
+
 <%= link_to 'Voltar', promotions_path %>

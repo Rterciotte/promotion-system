@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :promotions, only: %i[index show new create] 
+  resources :promotions do
+    get 'search', on: :collection
+  end
 end
