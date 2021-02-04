@@ -18,4 +18,16 @@ feature 'Admin generate coupons' do
     expect(page).to have_content('NATAL10-0100')
     expect(page).not_to have_content('NATAL10-0101')
   end
+
+  scenario 'hide button if coupons generated' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Natal'
+    click_on 'Gerar cupons'
+
+    expect(page).not_to have_content('Gerar cupons')
+  end 
 end
