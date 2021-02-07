@@ -5,7 +5,9 @@ feature 'Admin edits promotion' do
   scenario 'successfully' do
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                expiration_date: '22/12/2033')
+                                expiration_date: '22/12/2033', user: user)
+    user = User.create!(email: 'rogerio@email.com', password: '123456')
+    login_as user                                
 
     visit root_path
     click_on 'Promoções'
@@ -28,7 +30,9 @@ feature 'Admin edits promotion' do
   scenario 'attributes cannot be blank' do
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                expiration_date: '22/12/2033')
+                                expiration_date: '22/12/2033', user: user)
+    user = User.create!(email: 'rogerio@email.com', password: '123456')
+    login_as user
     visit root_path
     click_on 'Promoções'
     click_on 'Natal'
@@ -46,10 +50,12 @@ feature 'Admin edits promotion' do
   scenario 'code must be unique' do
     Promotion.create!(name: 'Páscoa', description: 'Promoção de Páscoa',
                                 code: 'PASCOA10', discount_rate: 15, coupon_quantity: 90,
-                                expiration_date: '30/04/2045')
+                                expiration_date: '30/04/2045', user: user)
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                expiration_date: '22/12/2033')
+                                expiration_date: '22/12/2033', user: user)
+    user = User.create!(email: 'rogerio@email.com', password: '123456')
+    login_as user                            
 
     visit root_path
     click_on 'Promoções'

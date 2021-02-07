@@ -1,8 +1,10 @@
 class Promotion < ApplicationRecord
     has_many :coupons
+    belongs_to :user
+
     validates :name, :code, :discount_rate, :coupon_quantity, :expiration_date, presence: true
     validates :code, uniqueness: true
-    validate :expiration_date_cannot_be_in_the_past, :discount_cannot_be_greater_than_total_value
+    validate :expiration_date_cannot_be_in_the_past
 
     def generate_coupons!
       Coupon.transaction do  
@@ -18,9 +20,9 @@ class Promotion < ApplicationRecord
         end
       end
     
-    def discount_cannot_be_greater_than_total_value
-        if discount_rate > 100
-        errors.add(:discount_rate, "can't be greater than total value")
-        end
-    end
+    #def discount_cannot_be_greater_than_total_value
+    #    if(discount_rate > 100)
+    #      errors.add(:discount_rate, "can't be greater than total value")
+    #    end
+    #end
 end

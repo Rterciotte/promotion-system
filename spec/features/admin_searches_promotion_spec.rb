@@ -4,7 +4,9 @@ feature 'Admin searches promotion' do
     scenario 'and find exact match' do
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                     code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                    expiration_date: '22/12/2033')
+                                    expiration_date: '22/12/2033', user: user)
+        user = User.create!(email: 'rogerio@email.com', password: '123456')
+        login_as user                                    
         visit root_path
         click_on 'Promoções'
         fill_in 'Busca de promoção', with: promotion.name
@@ -19,7 +21,9 @@ feature 'Admin searches promotion' do
     scenario 'and finds nothing' do
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                     code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                    expiration_date: '22/12/2033')
+                                    expiration_date: '22/12/2033', user: user)
+        user = User.create!(email: 'rogerio@email.com', password: '123456')
+        login_as user                                    
         visit root_path
         click_on 'Promoções'
         fill_in 'Busca de promoção', with: 'Páscoa'
@@ -34,7 +38,9 @@ feature 'Admin searches promotion' do
     scenario 'finds by partial name' do
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                     code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                    expiration_date: '22/12/2033')
+                                    expiration_date: '22/12/2033', user: user)
+        user = User.create!(email: 'rogerio@email.com', password: '123456')
+        login_as user
         visit root_path
         click_on 'Promoções'
         fill_in 'Busca de promoção', with: 'Nat'
